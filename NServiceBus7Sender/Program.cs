@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Case00042311;
 using Newtonsoft.Json.Bson;
 using NServiceBus;
-using NServiceBus.MessageMutator;
 
 class Program
 {
@@ -18,8 +17,8 @@ class Program
         var serializer = endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
 
         serializer.WriterCreator(stream => new BsonDataWriter(stream));
+        serializer.ContentTypeKey("application/bson");
 
-        endpointConfiguration.RegisterMessageMutator(new BsonContentTypeMutator());
         endpointConfiguration.SendOnly();
 
         endpointConfiguration.Conventions().DefiningCommandsAs(t => t == typeof(TestCommand));
