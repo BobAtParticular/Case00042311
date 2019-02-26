@@ -12,6 +12,7 @@ class Program
         transport.ConnectionString("Host=localhost");
 
         busConfiguration.UseSerialization<BsonSerializer>();
+        //busConfiguration.UseSerialization<JsonSerializer>();
 
         busConfiguration.UsePersistence<InMemoryPersistence>();
 
