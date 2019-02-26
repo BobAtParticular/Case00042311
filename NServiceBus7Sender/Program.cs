@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Case00042311;
+using Case00042311.BsonSerializer;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using NServiceBus;
 
@@ -14,10 +16,17 @@ class Program
         transport.ConnectionString("Host=localhost");
         transport.UseConventionalRoutingTopology();
 
-        var serializer = endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+        endpointConfiguration.UseSerialization<BsonSerializer>();
 
-        serializer.WriterCreator(stream => new BsonDataWriter(stream));
-        serializer.ContentTypeKey("application/bson");
+        //var serializer = endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+
+        //serializer.WriterCreator(stream => new BsonDataWriter(stream));
+        //serializer.ContentTypeKey("application/bson");
+        //serializer.Settings(new JsonSerializerSettings
+        //{
+        //    TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
+        //    TypeNameHandling = TypeNameHandling.Auto
+        //});
 
         endpointConfiguration.SendOnly();
 
