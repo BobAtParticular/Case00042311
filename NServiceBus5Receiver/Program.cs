@@ -1,5 +1,4 @@
-﻿using Case00042311;
-using NServiceBus;
+﻿using NServiceBus;
 using System;
 
 class Program
@@ -15,8 +14,6 @@ class Program
         busConfiguration.UseSerialization<BsonSerializer>();
 
         busConfiguration.UsePersistence<InMemoryPersistence>();
-
-        busConfiguration.Conventions().DefiningCommandsAs(t => t == typeof(TestCommand));
 
         var startableBus = Bus.Create(busConfiguration);
         var bus = startableBus.Start();

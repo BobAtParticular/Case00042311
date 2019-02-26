@@ -21,8 +21,6 @@ class Program
 
         endpointConfiguration.SendOnly();
 
-        endpointConfiguration.Conventions().DefiningCommandsAs(t => t == typeof(TestCommand));
-
         var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
 
         Console.WriteLine("Press Enter to send a message and exit");
